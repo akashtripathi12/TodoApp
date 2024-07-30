@@ -12,7 +12,6 @@ const SearchBar = ({ searchQuery, handleSearch, handleSubmitSearch }) => {
           onChange={handleSearch}
           placeholder="Search tasks"
         />
-        <button type="submit">Search</button>
       </form>
     </div>
   );

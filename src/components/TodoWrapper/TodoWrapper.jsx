@@ -8,6 +8,7 @@ import Button from "../Button/Button";
 import "./TodoWrapper.css";
 
 const TodoWrapper = () => {
+  //states
   const [toggle, setToggle] = useState(false);
   const [allTodos, setAllTodos] = useState([]);
   const [newTodo, setNewTodo] = useState({ title: "", description: "" });
@@ -18,7 +19,7 @@ const TodoWrapper = () => {
   const [filteredTodos, setFilteredTodos] = useState([]);
   const [expanded, setExpanded] = useState({});
 
-  // Event handlers and functions
+  //functions and handlers
   const onChangeHandler = (event) => {
     const { name, value } = event.target;
     setNewTodo((prevTodo) => ({ ...prevTodo, [name]: value }));
@@ -48,7 +49,8 @@ const TodoWrapper = () => {
   };
 
   const handleDeleteTodo = (index) => {
-    const updatedTodoArr = allTodos.filter((_, i) => i !== index);
+    const updatedTodoArr = [...allTodos];
+    updatedTodoArr.splice(index, 1);
     setAllTodos(updatedTodoArr);
     localStorage.setItem("todolist", JSON.stringify(updatedTodoArr));
 
@@ -74,13 +76,17 @@ const TodoWrapper = () => {
       JSON.stringify(updatedCompletedTodos)
     );
 
-    handleDeleteTodo(index);
+    const updatedTodoArr = [...allTodos];
+    updatedTodoArr.splice(index, 1);
+    setAllTodos(updatedTodoArr);
+    localStorage.setItem("todolist", JSON.stringify(updatedTodoArr));
 
     toast.success("Task Completed Successfully");
   };
 
   const handleDeleteCompletedTodo = (index) => {
-    const updatedCompletedTodos = completedTodos.filter((_, i) => i !== index);
+    const updatedCompletedTodos = [...completedTodos];
+    updatedCompletedTodos.splice(index, 1);
     setCompletedTodos(updatedCompletedTodos);
     localStorage.setItem(
       "completedTodos",
